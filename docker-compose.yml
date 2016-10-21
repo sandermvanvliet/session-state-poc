@@ -2,11 +2,15 @@ web01:
   build: .
   expose:
     - 80
+  links:
+    - mysql01
 
 web02:
   build: .
   expose:
     - 80
+  links:
+    - mysql02
 
 haproxy:
   image: haproxy
@@ -21,3 +25,19 @@ haproxy:
   expose:
     - "8080"
     - "70"
+
+mysql01:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: 123456
+    MYSQL_USER: dev
+    MYSQL_PASSWORD: 123456
+    MYSQL_DATABASE: app
+
+mysql02:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: 123456
+    MYSQL_USER: dev
+    MYSQL_PASSWORD: 123456
+    MYSQL_DATABASE: app
