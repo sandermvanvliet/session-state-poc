@@ -28,16 +28,28 @@ haproxy:
 
 mysql01:
   image: mysql
+  volumes:
+    - ./mysql01/conf.d:/etc/mysql/conf.d
+    - ./mysql01/data:/var/lib/mysql
   environment:
     MYSQL_ROOT_PASSWORD: 123456
     MYSQL_USER: dev
     MYSQL_PASSWORD: 123456
     MYSQL_DATABASE: app
+  expose:
+    - 3306
 
 mysql02:
   image: mysql
+  volumes:
+    - ./mysql02/conf.d:/etc/mysql/conf.d
+    - ./mysql02/data:/var/lib/mysql
   environment:
     MYSQL_ROOT_PASSWORD: 123456
     MYSQL_USER: dev
     MYSQL_PASSWORD: 123456
     MYSQL_DATABASE: app
+  expose:
+    - 3306
+  links:
+    - mysql01
