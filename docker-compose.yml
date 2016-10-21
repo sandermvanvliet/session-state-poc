@@ -1,0 +1,23 @@
+web01:
+  build: .
+  expose:
+    - 80
+
+web02:
+  build: .
+  expose:
+    - 80
+
+haproxy:
+  image: haproxy
+  volumes:
+    - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+  links:
+    - web01
+    - web02
+  ports:
+    - "8080:80"
+    - "70:70"
+  expose:
+    - "8080"
+    - "70"
