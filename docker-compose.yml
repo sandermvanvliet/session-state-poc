@@ -9,6 +9,8 @@ services:
       - MYSQLSERVERNAME=mysql01
     depends_on:
       - mysql01
+    volumes:
+      - ./dpapi:/dpapi
   
   web02:
     build: .
@@ -18,6 +20,8 @@ services:
       - MYSQLSERVERNAME=mysql02
     depends_on:
       - mysql02
+    volumes:
+      - ./dpapi:/dpapi
   
   haproxy:
     image: haproxy
