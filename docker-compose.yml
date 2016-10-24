@@ -11,6 +11,7 @@ services:
       - mysql01
     volumes:
       - ./dpapi:/dpapi
+      - ./published-app:/app
   
   web02:
     build: .
@@ -22,6 +23,7 @@ services:
       - mysql02
     volumes:
       - ./dpapi:/dpapi
+      - ./published-app:/app
   
   haproxy:
     image: haproxy
