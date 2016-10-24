@@ -5,11 +5,19 @@ services:
     build: .
     expose:
       - 80
+    environment:
+      - MYSQLSERVERNAME=mysql01
+    depends_on:
+      - mysql01
   
   web02:
     build: .
     expose:
       - 80
+    environment:
+      - MYSQLSERVERNAME=mysql02
+    depends_on:
+      - mysql02
   
   haproxy:
     image: haproxy
@@ -21,6 +29,9 @@ services:
     expose:
       - "8080"
       - "70"
+    depends_on:
+      - web01
+      - web02
   
   mysql01:
     image: mysql
