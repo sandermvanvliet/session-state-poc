@@ -4,8 +4,10 @@ This is a demonstration set-up of a load balanced ASP.Net application with sessi
 The set-up of this demonstration is as follows:
 
 ```
-                       /----> [ASP.Net node #1] --> [MySQL node #1]
-[client] -> [HA Proxy]
+                       /----> [ASP.Net node #1] --> [MySQL node #1] 
+                                                          ^                       
+[client] -> [HA Proxy]                                    | replication
+                                                          v
                        \----> [ASP.Net node #2] --> [MySQL node #2]
 ```
 
@@ -21,6 +23,7 @@ HA Proxy is configured to do Round Robin distribution so requests are shared ove
 ## Running the demo
 * Clone this repository
 * Enter the cloned directory
+* Download the VerySimple ASP.Net app from here [https://github.com/sandermvanvliet/session-state-poc/releases/tag/0.0.1](https://github.com/sandermvanvliet/session-state-poc/releases/tag/0.0.1) and unzip the contents to the `published-app` folder
 * Run: `docker-compose up`
 * Wait for all containers to start (using `docker ps` or Kitematic)
 * Run: `./after-start.sh`
