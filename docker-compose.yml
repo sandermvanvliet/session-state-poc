@@ -7,6 +7,7 @@ services:
       - 80
     environment:
       - MYSQLSERVERNAME=mysql01
+      - DPAPI_PATH=/dpapi
     depends_on:
       - mysql01
     volumes:
@@ -19,6 +20,7 @@ services:
       - 80
     environment:
       - MYSQLSERVERNAME=mysql02
+      - DPAPI_PATH=/dpapi
     depends_on:
       - mysql02
     volumes:
@@ -51,6 +53,8 @@ services:
       MYSQL_DATABASE: app
     expose:
       - 3306
+    ports:
+      - 3316:3306
   
   mysql02:
     image: mysql
@@ -64,3 +68,5 @@ services:
       MYSQL_DATABASE: app
     expose:
       - 3306
+    ports:
+      - 3326:3306
