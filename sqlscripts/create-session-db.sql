@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS `sessionstate` DEFAULT CHARACTER SET latin1 COLLAT
 USE `sessionstate`;
 
 CREATE TABLE `sessions` (
-  `sessionid` char(36) NOT NULL,
+  `sessionid` varchar(36) NOT NULL,
   `size` int(11) NOT NULL,
   `value` blob,
   `expirydate` datetime DEFAULT NULL,
