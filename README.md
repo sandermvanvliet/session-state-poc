@@ -13,6 +13,15 @@ The set-up of this demonstration is as follows:
 
 HA Proxy is configured to do Round Robin distribution so requests are shared over both nodes meaning there is no sticky session.
 
+## Goals
+* Demonstrate a high availibility set-up
+* Demonstrate common failure scenarios:
+  * HA Proxy fails
+  * Web node fails
+  * Both web nodes fail
+  * MySQL node fails
+  * Both MySQL nodes fail
+
 ## Requirements
 * Docker version 1.12.1
 * Docker Compose version 1.8.0
