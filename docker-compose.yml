@@ -36,7 +36,6 @@ services:
     image: mysql
     volumes:
       - ./mysql01/conf.d:/etc/mysql/conf.d:ro
-      - ./mysql01/data:/var/lib/mysql:rw # MySQL data needs to be read-write
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_USER: dev
@@ -47,7 +46,6 @@ services:
     image: mysql
     volumes:
       - ./mysql02/conf.d:/etc/mysql/conf.d:ro
-      - ./mysql02/data:/var/lib/mysql:rw # MySQL data needs to be read-write
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_USER: dev
