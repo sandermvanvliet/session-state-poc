@@ -3,40 +3,31 @@ version: '2'
 services:
   web01:
     build: .
-    expose:
-      - 80
     environment:
       - MYSQLSERVERNAME=mysql01
       - DPAPI_PATH=/dpapi
     depends_on:
       - mysql01
     volumes:
-      - ./dpapi:/dpapi
-      - ./published-app:/app
+      - ./published-app:/app:ro
   
   web02:
     build: .
-    expose:
-      - 80
     environment:
       - MYSQLSERVERNAME=mysql02
       - DPAPI_PATH=/dpapi
     depends_on:
       - mysql02
     volumes:
-      - ./dpapi:/dpapi
-      - ./published-app:/app
+      - ./published-app:/app:ro
   
   haproxy:
     image: haproxy
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     ports:
-      - "8080:80"
-      - "70:70"
-    expose:
-      - "8080"
-      - "70"
+      - "8080:80" # We want port 8080 available to let us test
+      - "70:70"   # We want to be able to see statistics of HAProxy
     depends_on:
       - web01
       - web02
@@ -44,29 +35,21 @@ services:
   mysql01:
     image: mysql
     volumes:
-      - ./mysql01/conf.d:/etc/mysql/conf.d
-      - ./mysql01/data:/var/lib/mysql
+      - ./mysql01/conf.d:/etc/mysql/conf.d:ro
+      - ./mysql01/data:/var/lib/mysql:rw # MySQL data needs to be read-write
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
       MYSQL_DATABASE: app
-    expose:
-      - 3306
-    ports:
-      - 3316:3306
   
   mysql02:
     image: mysql
     volumes:
-      - ./mysql02/conf.d:/etc/mysql/conf.d
-      - ./mysql02/data:/var/lib/mysql
+      - ./mysql02/conf.d:/etc/mysql/conf.d:ro
+      - ./mysql02/data:/var/lib/mysql:rw # MySQL data needs to be read-write
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
       MYSQL_DATABASE: app
-    expose:
-      - 3306
-    ports:
-      - 3326:3306
